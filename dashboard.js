@@ -10,7 +10,12 @@
    ========================================================= */
 
 function loadSession() {
-  var raw = localStorage.getItem('novaAiSession');
+  var raw = null;
+  try {
+    raw = localStorage.getItem('novaAiSession');
+  } catch (error) {
+    return null;
+  }
   if (!raw) {
     return null;
   }
@@ -40,7 +45,11 @@ function initLogout() {
   }
 
   logoutBtn.addEventListener('click', function () {
-    localStorage.removeItem('novaAiSession');
+    try {
+      localStorage.removeItem('novaAiSession');
+    } catch (error) {
+      /* localStorage unavailable — just navigate away */
+    }
     window.location.href = 'login.html';
   });
 }

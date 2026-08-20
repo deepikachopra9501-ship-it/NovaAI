@@ -114,7 +114,11 @@ function initLoginForm() {
         loggedInAt: new Date().toISOString()
       };
 
-      localStorage.setItem('novaAiSession', JSON.stringify(userProfile));
+      try {
+        localStorage.setItem('novaAiSession', JSON.stringify(userProfile));
+      } catch (error) {
+        /* localStorage unavailable — login still simulates fine this session */
+      }
 
       submitBtn.disabled = false;
       submitBtnText.textContent = 'Log In';

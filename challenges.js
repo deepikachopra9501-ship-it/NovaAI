@@ -25,7 +25,12 @@ var activeFilter = 'All';
 var searchTerm = '';
 
 function getCompletedIds() {
-  var raw = localStorage.getItem('novaAiCompletedChallenges');
+  var raw = null;
+  try {
+    raw = localStorage.getItem('novaAiCompletedChallenges');
+  } catch (error) {
+    return [];
+  }
   if (!raw) {
     return [];
   }
@@ -37,7 +42,11 @@ function getCompletedIds() {
 }
 
 function saveCompletedIds(ids) {
-  localStorage.setItem('novaAiCompletedChallenges', JSON.stringify(ids));
+  try {
+    localStorage.setItem('novaAiCompletedChallenges', JSON.stringify(ids));
+  } catch (error) {
+    /* localStorage unavailable — completion just won't persist */
+  }
 }
 
 function toggleCompleted(id) {

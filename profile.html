@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile — Nova AI</title>
+  <script>
+    (function () {
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('novaAiTheme'); } catch (error) {}
+      document.documentElement.setAttribute('data-theme', savedTheme ? savedTheme : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="responsive.css" />
+  <style>
+    .profile-header { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; }
+    .profile-field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-top: var(--space-md); }
+    .profile-view-value { font-size: var(--fs-small); color: var(--text-primary); margin-top: 0.3rem; }
+    .profile-edit-only { display: none; }
+    body.is-editing .profile-view-only { display: none; }
+    body.is-editing .profile-edit-only { display: block; }
+    @media (max-width: 600px) { .profile-field-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="app-backdrop" aria-hidden="true"></div>
+  <div class="sidebar-backdrop"></div>
+
+  <div class="dash-layout">
+    <aside class="sidebar">
+      <a href="index.html" class="nav-logo" style="padding: 0 0.5rem; margin-bottom: var(--space-lg);">
+        <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8b5cf6" />
+              <stop offset="1" stop-color="#60a5fa" />
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="7" fill="url(#logoGrad)" />
+          <path d="M9 22V10L23 22V10" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Nova AI</span>
+      </a>
+      <nav style="display: flex; flex-direction: column; gap: 0.25rem; flex: 1;">
+        <a href="dashboard.html" class="sidebar-link">Dashboard</a>
+        <a href="resume.html" class="sidebar-link">Resume Analyzer</a>
+        <a href="interview.html" class="sidebar-link">Mock Interview</a>
+        <a href="challenges.html" class="sidebar-link">Coding Challenges</a>
+        <a href="progress.html" class="sidebar-link">Progress Tracker</a>
+        <a href="profile.html" class="sidebar-link is-active">Profile</a>
+        <a href="settings.html" class="sidebar-link">Settings</a>
+      </nav>
+      <button type="button" class="sidebar-link" id="logoutBtn" style="border: 1px solid var(--border-glass); text-align: left;">Logout</button>
+    </aside>
+
+    <main class="dash-main" style="max-width: 780px;">
+      <div class="mobile-topbar">
+        <div class="mobile-topbar-left">
+          <button type="button" class="btn btn-secondary btn-icon" data-sidebar-open aria-label="Open menu">☰</button>
+          <span class="nav-logo" style="font-size: 1.05rem;">Nova AI</span>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <div class="dash-topbar">
+        <div class="reveal">
+          <span class="eyebrow">Profile</span>
+          <h2 style="margin-top: 0.5rem;">Your profile</h2>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <div class="card reveal">
+        <div class="profile-header">
+          <div class="avatar-lg" id="avatarInitials">A</div>
+          <div>
+            <h3 id="profileNameDisplay">Arjun Sharma</h3>
+            <p class="text-small" id="profileCollegeDisplay">Chitkara University • Semester 5</p>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="editProfileBtn" style="margin-left: auto;">Edit Profile</button>
+        </div>
+
+        <form id="profileForm" style="margin-top: var(--space-lg);">
+          <div class="profile-field-grid">
+            <div class="field">
+              <label for="fullName">Full Name</label>
+              <input class="input" type="text" id="fullName" value="Arjun Sharma" disabled />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input class="input" type="email" id="email" value="arjun.sharma@college.edu" disabled />
+            </div>
+            <div class="field">
+              <label for="college">College</label>
+              <input class="input" type="text" id="college" value="Chitkara University" disabled />
+            </div>
+            <div class="field">
+              <label for="semester">Semester</label>
+              <input class="input" type="text" id="semester" value="5" disabled />
+            </div>
+            <div class="field">
+              <label for="github">GitHub</label>
+              <input class="input" type="text" id="github" value="github.com/arjunsharma" disabled />
+            </div>
+            <div class="field">
+              <label for="linkedin">LinkedIn</label>
+              <input class="input" type="text" id="linkedin" value="linkedin.com/in/arjunsharma" disabled />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="bio">Bio</label>
+            <textarea class="input" id="bio" rows="3" disabled>B.Tech CSE student passionate about AI/ML and full-stack web development.</textarea>
+          </div>
+
+          <div class="field">
+            <label>Skills</label>
+            <div id="skillsDisplay">
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Node.js</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary profile-edit-only" id="saveProfileBtn" style="display: none;">Save Changes</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="theme.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>

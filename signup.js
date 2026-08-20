@@ -111,8 +111,12 @@ function initSignupForm() {
       };
       var session = { email: emailInput.value.trim(), loggedInAt: new Date().toISOString() };
 
-      localStorage.setItem('novaAiProfile', JSON.stringify(profile));
-      localStorage.setItem('novaAiSession', JSON.stringify(session));
+      try {
+        localStorage.setItem('novaAiProfile', JSON.stringify(profile));
+        localStorage.setItem('novaAiSession', JSON.stringify(session));
+      } catch (error) {
+        /* localStorage unavailable — signup still simulates fine this session */
+      }
 
       submitBtn.disabled = false;
       submitBtnText.textContent = 'Create Account';

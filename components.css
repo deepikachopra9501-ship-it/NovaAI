@@ -219,8 +219,10 @@ select.input {
 }
 
 .input:focus {
-  border-color: var(--accent-cyan);
-  background: rgba(96, 165, 250, 0.05);
+  border-color: var(--accent-teal);
+  background: rgba(139, 92, 246, 0.05);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+  outline: none;
 }
 
 .input.is-invalid {
@@ -1218,4 +1220,19 @@ textarea.input {
   font-size: var(--fs-tiny);
   color: var(--text-secondary);
   margin: 0 0.4rem 0.4rem 0;
+}
+
+/* -----------------------------
+   15. AUTH VISUAL PHOTO
+   A real photo above the terminal snippet on Login/Signup.
+------------------------------ */
+.auth-visual-photo {
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-glass-strong);
+  box-shadow: var(--shadow-soft);
+  margin-top: var(--space-lg);
 }

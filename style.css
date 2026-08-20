@@ -219,9 +219,9 @@ ol {
   }
 }
 
-/* Visible keyboard focus everywhere */
+/* Visible keyboard focus everywhere — themed violet, not browser blue */
 :focus-visible {
-  outline: 2px solid var(--accent-cyan);
+  outline: 2px solid var(--accent-teal);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }

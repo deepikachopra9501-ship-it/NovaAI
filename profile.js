@@ -12,7 +12,12 @@
 var profileFieldIds = ['fullName', 'email', 'college', 'semester', 'github', 'linkedin', 'bio'];
 
 function loadProfile() {
-  var raw = localStorage.getItem('novaAiProfile');
+  var raw = null;
+  try {
+    raw = localStorage.getItem('novaAiProfile');
+  } catch (error) {
+    return;
+  }
   if (!raw) {
     return;
   }
@@ -71,7 +76,11 @@ function initEditToggle() {
       data[id] = document.getElementById(id).value;
     }
 
-    localStorage.setItem('novaAiProfile', JSON.stringify(data));
+    try {
+      localStorage.setItem('novaAiProfile', JSON.stringify(data));
+    } catch (error) {
+      /* localStorage unavailable — changes just won't persist */
+    }
 
     document.getElementById('profileNameDisplay').textContent = data.fullName;
     document.getElementById('avatarInitials').textContent = data.fullName.charAt(0).toUpperCase();
