@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Challenges — Nova AI</title>
+  <script>
+    (function () {
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('novaAiTheme'); } catch (error) {}
+      document.documentElement.setAttribute('data-theme', savedTheme ? savedTheme : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="responsive.css" />
+  <style>
+    #challengeList { display: flex; flex-direction: column; gap: 0.85rem; }
+    .challenge-card { transition: opacity var(--dur-base) var(--ease-standard); }
+  </style>
+</head>
+<body>
+  <div class="app-backdrop" aria-hidden="true"></div>
+  <div class="sidebar-backdrop"></div>
+
+  <div class="dash-layout">
+    <aside class="sidebar">
+      <a href="index.html" class="nav-logo" style="padding: 0 0.5rem; margin-bottom: var(--space-lg);">
+        <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8b5cf6" />
+              <stop offset="1" stop-color="#60a5fa" />
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="7" fill="url(#logoGrad)" />
+          <path d="M9 22V10L23 22V10" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Nova AI</span>
+      </a>
+      <nav style="display: flex; flex-direction: column; gap: 0.25rem; flex: 1;">
+        <a href="dashboard.html" class="sidebar-link">Dashboard</a>
+        <a href="resume.html" class="sidebar-link">Resume Analyzer</a>
+        <a href="interview.html" class="sidebar-link">Mock Interview</a>
+        <a href="challenges.html" class="sidebar-link is-active">Coding Challenges</a>
+        <a href="progress.html" class="sidebar-link">Progress Tracker</a>
+        <a href="profile.html" class="sidebar-link">Profile</a>
+        <a href="settings.html" class="sidebar-link">Settings</a>
+      </nav>
+      <button type="button" class="sidebar-link" id="logoutBtn" style="border: 1px solid var(--border-glass); text-align: left;">Logout</button>
+    </aside>
+
+    <main class="dash-main">
+      <div class="mobile-topbar">
+        <div class="mobile-topbar-left">
+          <button type="button" class="btn btn-secondary btn-icon" data-sidebar-open aria-label="Open menu">☰</button>
+          <span class="nav-logo" style="font-size: 1.05rem;">Nova AI</span>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <div class="dash-topbar">
+        <div class="reveal">
+          <span class="eyebrow">Coding Challenges</span>
+          <h2 style="margin-top: 0.5rem;">Sharpen your problem solving</h2>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <div class="filter-bar">
+        <div class="search-input-wrap">
+          <input class="input" type="text" id="searchInput" placeholder="Search challenges..." />
+        </div>
+        <button type="button" class="filter-pill is-active" data-filter="All">All</button>
+        <button type="button" class="filter-pill" data-filter="Easy">Easy</button>
+        <button type="button" class="filter-pill" data-filter="Medium">Medium</button>
+        <button type="button" class="filter-pill" data-filter="Hard">Hard</button>
+      </div>
+
+      <div id="challengeList"></div>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="theme.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="challenges.js"></script>
+</body>
+</html>

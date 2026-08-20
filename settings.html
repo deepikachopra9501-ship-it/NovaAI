@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Nova AI</title>
+  <script>
+    (function () {
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('novaAiTheme'); } catch (error) {}
+      document.documentElement.setAttribute('data-theme', savedTheme ? savedTheme : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="responsive.css" />
+  <style>
+    .theme-picker { display: flex; gap: 1rem; margin-top: 1rem; }
+    .theme-option {
+      flex: 1;
+      border: 2px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: border-color var(--dur-base) var(--ease-standard);
+    }
+    .theme-option.is-selected { border-color: var(--accent-teal); }
+    .theme-swatch { height: 48px; border-radius: var(--radius-sm); margin-bottom: 0.6rem; }
+    .theme-swatch-light { background: linear-gradient(135deg, #fdfcff, #e9defc); border: 1px solid #e6dcf3; }
+    .theme-swatch-dark { background: linear-gradient(135deg, #1c1836, #2a2450); }
+  </style>
+</head>
+<body>
+  <div class="app-backdrop" aria-hidden="true"></div>
+  <div class="sidebar-backdrop"></div>
+
+  <div class="dash-layout">
+    <aside class="sidebar">
+      <a href="index.html" class="nav-logo" style="padding: 0 0.5rem; margin-bottom: var(--space-lg);">
+        <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8b5cf6" />
+              <stop offset="1" stop-color="#60a5fa" />
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="7" fill="url(#logoGrad)" />
+          <path d="M9 22V10L23 22V10" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Nova AI</span>
+      </a>
+      <nav style="display: flex; flex-direction: column; gap: 0.25rem; flex: 1;">
+        <a href="dashboard.html" class="sidebar-link">Dashboard</a>
+        <a href="resume.html" class="sidebar-link">Resume Analyzer</a>
+        <a href="interview.html" class="sidebar-link">Mock Interview</a>
+        <a href="challenges.html" class="sidebar-link">Coding Challenges</a>
+        <a href="progress.html" class="sidebar-link">Progress Tracker</a>
+        <a href="profile.html" class="sidebar-link">Profile</a>
+        <a href="settings.html" class="sidebar-link is-active">Settings</a>
+      </nav>
+      <button type="button" class="sidebar-link" id="logoutBtn" style="border: 1px solid var(--border-glass); text-align: left;">Logout</button>
+    </aside>
+
+    <main class="dash-main" style="max-width: 680px;">
+      <div class="mobile-topbar">
+        <div class="mobile-topbar-left">
+          <button type="button" class="btn btn-secondary btn-icon" data-sidebar-open aria-label="Open menu">☰</button>
+          <span class="nav-logo" style="font-size: 1.05rem;">Nova AI</span>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-bottom: var(--space-lg);">
+        <span class="eyebrow">Settings</span>
+        <h2 style="margin-top: 0.5rem;">Preferences</h2>
+      </div>
+
+      <div class="card reveal">
+        <h4>Appearance</h4>
+        <p class="text-small" style="margin-top: 0.3rem;">Choose how Nova AI looks on your device.</p>
+
+        <div class="theme-picker">
+          <div class="theme-option" id="lightThemeOption" data-theme-option="light">
+            <div class="theme-swatch theme-swatch-light"></div>
+            <p class="text-small">☀️ Light</p>
+          </div>
+          <div class="theme-option" id="darkThemeOption" data-theme-option="dark">
+            <div class="theme-swatch theme-swatch-dark"></div>
+            <p class="text-small">🌙 Dark</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal reveal-1" style="margin-top: var(--space-md);">
+        <h4>Notifications</h4>
+        <div class="switch-row">
+          <div>
+            <p class="switch-row-label">Push Notifications</p>
+            <p class="switch-row-hint">Get notified about interview reminders and streaks.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="notificationsToggle" checked />
+            <span class="switch-track"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <div>
+            <p class="switch-row-label">Sound Effects</p>
+            <p class="switch-row-hint">Play a sound on task completion.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="soundToggle" checked />
+            <span class="switch-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="card reveal reveal-2" style="margin-top: var(--space-md);">
+        <h4>Account</h4>
+        <div class="switch-row">
+          <div>
+            <p class="switch-row-label">Email me weekly progress reports</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="weeklyReportsToggle" />
+            <span class="switch-track"></span>
+          </label>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="theme.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Progress Tracker — Nova AI</title>
+  <script>
+    (function () {
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('novaAiTheme'); } catch (error) {}
+      document.documentElement.setAttribute('data-theme', savedTheme ? savedTheme : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="responsive.css" />
+  <style>
+    .ring-card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; }
+    .week-bars { display: flex; align-items: flex-end; gap: 0.6rem; height: 100px; margin-top: var(--space-md); }
+    .week-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+    .week-bar { width: 100%; border-radius: 4px 4px 0 0; background: var(--gradient-primary); transition: height 1s var(--ease-standard); }
+  </style>
+</head>
+<body>
+  <div class="app-backdrop" aria-hidden="true"></div>
+  <div class="sidebar-backdrop"></div>
+
+  <div class="dash-layout">
+    <aside class="sidebar">
+      <a href="index.html" class="nav-logo" style="padding: 0 0.5rem; margin-bottom: var(--space-lg);">
+        <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8b5cf6" />
+              <stop offset="1" stop-color="#60a5fa" />
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="7" fill="url(#logoGrad)" />
+          <path d="M9 22V10L23 22V10" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Nova AI</span>
+      </a>
+      <nav style="display: flex; flex-direction: column; gap: 0.25rem; flex: 1;">
+        <a href="dashboard.html" class="sidebar-link">Dashboard</a>
+        <a href="resume.html" class="sidebar-link">Resume Analyzer</a>
+        <a href="interview.html" class="sidebar-link">Mock Interview</a>
+        <a href="challenges.html" class="sidebar-link">Coding Challenges</a>
+        <a href="progress.html" class="sidebar-link is-active">Progress Tracker</a>
+        <a href="profile.html" class="sidebar-link">Profile</a>
+        <a href="settings.html" class="sidebar-link">Settings</a>
+      </nav>
+      <button type="button" class="sidebar-link" id="logoutBtn" style="border: 1px solid var(--border-glass); text-align: left;">Logout</button>
+    </aside>
+
+    <main class="dash-main" style="max-width: 1100px;">
+      <div class="mobile-topbar">
+        <div class="mobile-topbar-left">
+          <button type="button" class="btn btn-secondary btn-icon" data-sidebar-open aria-label="Open menu">☰</button>
+          <span class="nav-logo" style="font-size: 1.05rem;">Nova AI</span>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <div class="dash-topbar">
+        <div class="reveal">
+          <span class="eyebrow">Progress Tracker</span>
+          <h2 style="margin-top: 0.5rem;">Your preparation, at a glance</h2>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <div class="dash-stat-grid" style="margin-bottom: var(--space-lg);">
+        <div class="card ring-card reveal">
+          <div class="progress-ring" data-ring-target="60"><div class="progress-ring-inner"><span>0%</span></div></div>
+          <p class="text-small">Coding</p>
+        </div>
+        <div class="card ring-card reveal reveal-1">
+          <div class="progress-ring" data-ring-target="75"><div class="progress-ring-inner"><span>0%</span></div></div>
+          <p class="text-small">Interview</p>
+        </div>
+        <div class="card ring-card reveal reveal-2">
+          <div class="progress-ring" data-ring-target="85"><div class="progress-ring-inner"><span>0%</span></div></div>
+          <p class="text-small">Resume</p>
+        </div>
+        <div class="card ring-card reveal reveal-3">
+          <div class="progress-ring" data-ring-target="70"><div class="progress-ring-inner"><span>0%</span></div></div>
+          <p class="text-small">Consistency</p>
+        </div>
+      </div>
+
+      <div class="dash-grid-2">
+        <div class="card reveal">
+          <h4>Weekly Activity</h4>
+          <div class="week-bars">
+            <div class="week-bar-col"><span class="week-bar" data-height="30%" style="height:0;"></span><span class="text-tiny">Mon</span></div>
+            <div class="week-bar-col"><span class="week-bar" data-height="55%" style="height:0;"></span><span class="text-tiny">Tue</span></div>
+            <div class="week-bar-col"><span class="week-bar" data-height="40%" style="height:0;"></span><span class="text-tiny">Wed</span></div>
+            <div class="week-bar-col"><span class="week-bar" data-height="70%" style="height:0;"></span><span class="text-tiny">Thu</span></div>
+            <div class="week-bar-col"><span class="week-bar" data-height="50%" style="height:0;"></span><span class="text-tiny">Fri</span></div>
+            <div class="week-bar-col"><span class="week-bar" data-height="85%" style="height:0;"></span><span class="text-tiny">Sat</span></div>
+            <div class="week-bar-col"><span class="week-bar" data-height="65%" style="height:0;"></span><span class="text-tiny">Sun</span></div>
+          </div>
+        </div>
+
+        <div class="card reveal reveal-1">
+          <h4>Overview</h4>
+          <div style="margin-top: 1rem;">
+            <div class="activity-row"><span class="text-small">Problems Solved</span><span class="mono-stat">24/60</span></div>
+            <div class="activity-row"><span class="text-small">Interviews Completed</span><span class="mono-stat">5</span></div>
+            <div class="activity-row"><span class="text-small">Current Streak</span><span class="mono-stat">7 days</span></div>
+            <div class="activity-row"><span class="text-small">Career Readiness</span><span class="mono-stat">72%</span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="theme.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="progress.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock Interview — Nova AI</title>
+  <script>
+    (function () {
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('novaAiTheme'); } catch (error) {}
+      document.documentElement.setAttribute('data-theme', savedTheme ? savedTheme : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="responsive.css" />
+  <style>
+    .interview-layout { display: grid; grid-template-columns: 200px 1fr 260px; gap: var(--space-md); align-items: start; }
+    .category-list { display: flex; flex-direction: column; gap: 0.4rem; }
+    .category-item { padding: 0.65rem 0.9rem; border-radius: var(--radius-md); font-size: var(--fs-small); color: var(--text-secondary); cursor: pointer; border: 1px solid transparent; }
+    .category-item.is-active { background: var(--bg-elevated); border-color: var(--border-glass-strong); color: var(--text-primary); font-weight: 600; }
+    .timer-badge { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; color: var(--accent-teal); }
+    .feedback-bar-row { margin-bottom: var(--space-md); }
+    .feedback-bar-label { display: flex; justify-content: space-between; font-size: var(--fs-tiny); margin-bottom: 0.35rem; }
+    #feedbackPanel { display: none; }
+    #feedbackPanel.is-visible { display: block; }
+    @media (max-width: 900px) { .interview-layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="app-backdrop" aria-hidden="true"></div>
+  <div class="sidebar-backdrop"></div>
+
+  <div class="dash-layout">
+    <aside class="sidebar">
+      <a href="index.html" class="nav-logo" style="padding: 0 0.5rem; margin-bottom: var(--space-lg);">
+        <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8b5cf6" />
+              <stop offset="1" stop-color="#60a5fa" />
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="7" fill="url(#logoGrad)" />
+          <path d="M9 22V10L23 22V10" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Nova AI</span>
+      </a>
+      <nav style="display: flex; flex-direction: column; gap: 0.25rem; flex: 1;">
+        <a href="dashboard.html" class="sidebar-link">Dashboard</a>
+        <a href="resume.html" class="sidebar-link">Resume Analyzer</a>
+        <a href="interview.html" class="sidebar-link is-active">Mock Interview</a>
+        <a href="challenges.html" class="sidebar-link">Coding Challenges</a>
+        <a href="progress.html" class="sidebar-link">Progress Tracker</a>
+        <a href="profile.html" class="sidebar-link">Profile</a>
+        <a href="settings.html" class="sidebar-link">Settings</a>
+      </nav>
+      <button type="button" class="sidebar-link" id="logoutBtn" style="border: 1px solid var(--border-glass); text-align: left;">Logout</button>
+    </aside>
+
+    <main class="dash-main" style="max-width: 1200px;">
+      <div class="mobile-topbar">
+        <div class="mobile-topbar-left">
+          <button type="button" class="btn btn-secondary btn-icon" data-sidebar-open aria-label="Open menu">☰</button>
+          <span class="nav-logo" style="font-size: 1.05rem;">Nova AI</span>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <div class="dash-topbar">
+        <div class="reveal">
+          <span class="eyebrow">Mock Interview</span>
+          <h2 style="margin-top: 0.5rem;">Practice, get feedback, improve</h2>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <div class="interview-layout">
+        <!-- Categories -->
+        <div class="card reveal">
+          <p class="text-tiny" style="margin-bottom: 0.75rem;">CATEGORIES</p>
+          <div class="category-list" id="categoryList">
+            <div class="category-item is-active" data-category="Frontend">Frontend</div>
+            <div class="category-item" data-category="Backend">Backend</div>
+            <div class="category-item" data-category="React">React</div>
+            <div class="category-item" data-category="JavaScript">JavaScript</div>
+            <div class="category-item" data-category="HR">HR</div>
+          </div>
+        </div>
+
+        <!-- Main Q&A -->
+        <div class="card reveal reveal-1">
+          <div class="flex-between">
+            <span class="badge badge-neutral">Question <span id="questionNumber">1</span> / <span id="questionTotal">5</span></span>
+            <span class="timer-badge" id="timerDisplay">02:45</span>
+          </div>
+
+          <h4 style="margin-top: var(--space-md);" id="questionText">What is the difference between let, const and var in JavaScript?</h4>
+
+          <textarea class="input" id="answerInput" rows="6" placeholder="Type your answer here..." style="margin-top: var(--space-md);"></textarea>
+
+          <div class="flex-between" style="margin-top: var(--space-md);">
+            <button type="button" class="btn btn-secondary btn-sm" id="skipBtn">Skip Question</button>
+            <button type="button" class="btn btn-primary" id="submitAnswerBtn">Submit Answer</button>
+          </div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="card reveal reveal-2">
+          <p class="text-tiny" style="margin-bottom: 0.75rem;">AI FEEDBACK</p>
+          <div id="feedbackPlaceholder">
+            <p class="text-small">Submit an answer to see feedback here.</p>
+          </div>
+          <div id="feedbackPanel">
+            <div class="feedback-bar-row">
+              <div class="feedback-bar-label"><span>Technical Accuracy</span><span class="mono-stat">82%</span></div>
+              <div class="mini-progress"><span class="mini-progress-fill" data-target-width="82%"></span></div>
+            </div>
+            <div class="feedback-bar-row">
+              <div class="feedback-bar-label"><span>Communication</span><span class="mono-stat">76%</span></div>
+              <div class="mini-progress"><span class="mini-progress-fill" data-target-width="76%"></span></div>
+            </div>
+            <div class="feedback-bar-row">
+              <div class="feedback-bar-label"><span>Confidence</span><span class="mono-stat">70%</span></div>
+              <div class="mini-progress"><span class="mini-progress-fill" data-target-width="70%"></span></div>
+            </div>
+            <p class="text-tiny" style="margin-top: 0.5rem;">IMPROVEMENT TIP</p>
+            <p class="text-small" style="margin-top: 0.3rem;">Try giving a concrete example alongside your definition next time.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="theme.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="interview.js"></script>
+</body>
+</html>

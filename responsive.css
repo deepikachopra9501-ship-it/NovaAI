@@ -1,0 +1,187 @@
+/* =========================================================
+   NOVA AI — RESPONSIVE RULES
+   File: css/responsive.css
+   Breakpoints: 1024px (tablet), 768px (large mobile),
+   480px (small mobile). Loaded last so it can override.
+   ========================================================= */
+
+/* -----------------------------
+   Tablet and below
+------------------------------ */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+
+  .container {
+    padding: 0 var(--space-sm);
+  }
+
+  .nav-links {
+    gap: var(--space-md);
+  }
+}
+
+/* -----------------------------
+   Large mobile / small tablet
+------------------------------ */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--space-xl) 0;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-glass);
+    padding: var(--space-sm) var(--space-md) var(--space-md);
+    transform: translateY(-12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform var(--dur-base) var(--ease-standard),
+                opacity var(--dur-base) var(--ease-standard),
+                visibility var(--dur-base);
+  }
+
+  .nav-links.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-links a {
+    width: 100%;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border-glass);
+  }
+
+  .nav-actions .btn-secondary {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  /* Sidebar collapses into an off-canvas panel toggled by JS */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform var(--dur-base) var(--ease-standard);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 85;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-standard);
+  }
+
+  .sidebar-backdrop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* -----------------------------
+   Small mobile
+------------------------------ */
+@media (max-width: 480px) {
+  .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: var(--fs-tiny);
+  }
+
+  h1 { letter-spacing: -0.01em; }
+
+  .card {
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+  }
+}
+
+/* -----------------------------
+   Landing page sections
+------------------------------ */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .hero-copy {
+    padding: var(--space-xl) 0;
+  }
+
+  .hero-media {
+    order: -1;
+    min-height: 260px;
+  }
+
+  .hero-photo {
+    border-left: none;
+    border-radius: var(--radius-lg);
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "a"
+      "b"
+      "c"
+      "d";
+  }
+
+  .timeline {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .timeline::before {
+    top: 0;
+    bottom: 0;
+    left: 21px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .footer-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-visual {
+    border-right: none;
+    border-bottom: 1px solid var(--border-glass);
+    padding: var(--space-lg) var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-brand-row {
+    flex-direction: column;
+  }
+}

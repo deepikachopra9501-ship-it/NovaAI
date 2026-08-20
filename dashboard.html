@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Nova AI</title>
+  <script>
+    (function () {
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('novaAiTheme'); } catch (error) {}
+      document.documentElement.setAttribute('data-theme', savedTheme ? savedTheme : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="responsive.css" />
+</head>
+<body>
+  <div class="app-backdrop" aria-hidden="true"></div>
+  <div class="sidebar-backdrop"></div>
+
+  <div class="dash-layout">
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar">
+      <a href="index.html" class="nav-logo" style="padding: 0 0.5rem; margin-bottom: var(--space-lg);">
+        <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8b5cf6" />
+              <stop offset="1" stop-color="#60a5fa" />
+            </linearGradient>
+          </defs>
+          <rect width="32" height="32" rx="7" fill="url(#logoGrad)" />
+          <path d="M9 22V10L23 22V10" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Nova AI</span>
+      </a>
+
+      <nav style="display: flex; flex-direction: column; gap: 0.25rem; flex: 1;">
+        <a href="dashboard.html" class="sidebar-link is-active">Dashboard</a>
+        <a href="resume.html" class="sidebar-link">Resume Analyzer</a>
+        <a href="interview.html" class="sidebar-link">Mock Interview</a>
+        <a href="challenges.html" class="sidebar-link">Coding Challenges</a>
+        <a href="progress.html" class="sidebar-link">Progress Tracker</a>
+        <a href="profile.html" class="sidebar-link">Profile</a>
+        <a href="settings.html" class="sidebar-link">Settings</a>
+      </nav>
+
+      <button type="button" class="sidebar-link" id="logoutBtn" style="border: 1px solid var(--border-glass); text-align: left;">Logout</button>
+    </aside>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="dash-main">
+      <div class="mobile-topbar">
+        <div class="mobile-topbar-left">
+          <button type="button" class="btn btn-secondary btn-icon" data-sidebar-open aria-label="Open menu">☰</button>
+          <span class="nav-logo" style="font-size: 1.05rem;">Nova AI</span>
+        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <div class="dash-topbar">
+        <div class="reveal">
+          <span class="eyebrow">Dashboard</span>
+          <h2 style="margin-top: 0.5rem;" id="greetingText">Good Morning, Arjun</h2>
+          <p class="text-small" style="margin-top: 0.25rem;">Let's continue your journey toward becoming a better developer.</p>
+        </div>
+        <div class="flex" style="gap: 0.75rem;">
+          <span class="badge badge-easy">🔥 <span id="streakCount">7</span> day streak</span>
+          <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+        </div>
+      </div>
+
+      <div class="dash-stat-grid">
+        <div class="card dash-stat-card reveal">
+          <p class="stat-label">Resume Score</p>
+          <div class="stat-value-row"><span class="mono-stat" style="font-size: 1.6rem;">85</span><span class="text-muted text-small">/100</span></div>
+          <div class="mini-progress"><span class="mini-progress-fill" data-target-width="85%"></span></div>
+        </div>
+        <div class="card dash-stat-card reveal reveal-1">
+          <p class="stat-label">Problems Solved</p>
+          <div class="stat-value-row"><span class="mono-stat" style="font-size: 1.6rem;">24</span><span class="text-muted text-small">/60</span></div>
+          <div class="mini-progress"><span class="mini-progress-fill" data-target-width="40%"></span></div>
+        </div>
+        <div class="card dash-stat-card reveal reveal-2">
+          <p class="stat-label">Interview Score</p>
+          <div class="stat-value-row"><span class="mono-stat" style="font-size: 1.6rem;">78</span><span class="text-muted text-small">/100</span></div>
+          <div class="mini-progress"><span class="mini-progress-fill" data-target-width="78%"></span></div>
+        </div>
+        <div class="card dash-stat-card reveal reveal-3">
+          <p class="stat-label">Daily Goal</p>
+          <div class="stat-value-row"><span class="mono-stat" style="font-size: 1.6rem;">2</span><span class="text-muted text-small">/3</span></div>
+          <div class="mini-progress"><span class="mini-progress-fill" data-target-width="66%"></span></div>
+        </div>
+      </div>
+
+      <div class="dash-grid-2">
+        <div class="card reveal">
+          <h4>Recent Activity</h4>
+          <div style="margin-top: 1rem;">
+            <div class="activity-row">
+              <span class="flex"><span class="activity-icon">✅</span><span class="text-small">Solved "Two Sum" — Easy</span></span>
+              <span class="text-tiny">2h ago</span>
+            </div>
+            <div class="activity-row">
+              <span class="flex"><span class="activity-icon">🎤</span><span class="text-small">Completed Frontend mock interview</span></span>
+              <span class="text-tiny">Yesterday</span>
+            </div>
+            <div class="activity-row">
+              <span class="flex"><span class="activity-icon">📄</span><span class="text-small">Resume re-analyzed — score 85/100</span></span>
+              <span class="text-tiny">2 days ago</span>
+            </div>
+            <div class="activity-row">
+              <span class="flex"><span class="activity-icon">✅</span><span class="text-small">Solved "Valid Parentheses" — Easy</span></span>
+              <span class="text-tiny">3 days ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal reveal-1">
+          <h4>AI Recommendation</h4>
+          <p class="text-small" style="margin-top: 0.75rem;">Your interview score is your biggest gap right now. Try one more mock interview this week to close it.</p>
+          <a href="interview.html" class="btn btn-primary btn-sm btn-block" style="margin-top: 1rem;">Start Mock Interview</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="theme.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

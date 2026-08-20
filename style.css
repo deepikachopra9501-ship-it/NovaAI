@@ -1,0 +1,406 @@
+/* =========================================================
+   NOVA AI — GLOBAL DESIGN SYSTEM
+   File: css/style.css
+   Contains: CSS reset, design tokens (variables), typography,
+   base element styles, layout utilities, keyframe animations.
+   ========================================================= */
+
+/* -----------------------------
+   1. FONT IMPORTS
+   Space Grotesk  -> Display / Headings (geometric, technical)
+   Inter          -> Body copy (neutral, highly readable)
+   JetBrains Mono -> Stats, scores, timers, code (reinforces
+                     the "coding mentor" identity — data on
+                     Nova AI always reads like terminal output)
+------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* -----------------------------
+   2. DESIGN TOKENS
+------------------------------ */
+:root {
+  /* Backgrounds — LIGHT is the primary theme: soft lavender-tinted white */
+  --bg-void: #f8f6fc;
+  --bg-primary: #fdfcff;
+  --bg-secondary: #ffffff;
+  --bg-elevated: #f3edfa;
+  --bg-glass: #ffffff;
+
+  /* Borders / lines */
+  --border-glass: #e6dcf3;
+  --border-glass-strong: #d6c5ea;
+  --border-glow: rgba(139, 92, 246, 0.35);
+
+  /* Text — deep purple/plum for a premium, sophisticated feel */
+  --text-primary: #2a1c47;
+  --text-secondary: #6b5d82;
+  --text-muted: #8f80a3;
+  --text-faint: #c3b6d6;
+
+  /* Accents — lavender/violet primary, soft blue secondary, pink tertiary */
+  --accent-teal: #8b5cf6;
+  --accent-teal-dim: #7c3aed;
+  --accent-cyan: #60a5fa;
+  --accent-cyan-dim: #3b82f6;
+  --accent-amber: #ec4899;
+
+  /* Status */
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+
+  /* Gradients — lavender → purple, purple → soft blue, pink → lavender */
+  --gradient-primary: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 100%);
+  --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #60a5fa 100%);
+  --gradient-pink: linear-gradient(135deg, #f9a8d4 0%, #c4b5fd 100%);
+  --gradient-text: linear-gradient(135deg, #8b5cf6 0%, #ec4899 55%, #60a5fa 100%);
+  --gradient-border: linear-gradient(135deg, rgba(139,92,246,0.6), rgba(96,165,250,0.6));
+
+  /* Typography */
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Type scale */
+  --fs-h1: clamp(2.6rem, 5vw, 4.4rem);
+  --fs-h2: clamp(2rem, 3.4vw, 3rem);
+  --fs-h3: clamp(1.4rem, 2.2vw, 1.9rem);
+  --fs-h4: 1.25rem;
+  --fs-body-lg: 1.15rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-tiny: 0.75rem;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 0.875rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6.5rem;
+
+  /* Radii — soft, friendly corners */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-full: 999px;
+
+  /* Shadow / glow — soft, violet-tinted for a premium feel in light mode */
+  --shadow-soft: 0 4px 16px rgba(139, 92, 246, 0.08);
+  --shadow-lift: 0 16px 36px rgba(139, 92, 246, 0.14);
+  --glow-teal: 0 0 0 1px rgba(139, 92, 246, 0.25), 0 0 24px rgba(139, 92, 246, 0.14);
+  --glow-cyan: 0 0 0 1px rgba(96, 165, 250, 0.25), 0 0 24px rgba(96, 165, 250, 0.14);
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 260ms;
+  --dur-slow: 500ms;
+
+  /* Layout */
+  --max-width: 1280px;
+  --nav-height: 72px;
+  --sidebar-width: 260px;
+}
+
+/* -----------------------------
+   DARK MODE — deep navy-violet, never pure black.
+   Toggled via data-theme="dark" on <html>, set by theme.js.
+------------------------------ */
+[data-theme="dark"] {
+  --bg-void: #16132a;
+  --bg-primary: #1c1836;
+  --bg-secondary: #221d40;
+  --bg-elevated: #2a2450;
+  --bg-glass: #221d40;
+
+  --border-glass: #362f5c;
+  --border-glass-strong: #453c72;
+  --border-glow: rgba(167, 139, 250, 0.4);
+
+  --text-primary: #f3eefc;
+  --text-secondary: #b6a9d4;
+  --text-muted: #8577a8;
+  --text-faint: #554a7c;
+
+  --accent-teal: #a78bfa;
+  --accent-teal-dim: #8b5cf6;
+  --accent-cyan: #7dd3fc;
+  --accent-cyan-dim: #38bdf8;
+  --accent-amber: #f472b6;
+
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #f87171;
+
+  --gradient-primary: linear-gradient(135deg, #a78bfa 0%, #7dd3fc 100%);
+  --gradient-accent: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+  --gradient-pink: linear-gradient(135deg, #f9a8d4 0%, #a78bfa 100%);
+  --gradient-text: linear-gradient(135deg, #c4b5fd 0%, #f472b6 55%, #7dd3fc 100%);
+  --gradient-border: linear-gradient(135deg, rgba(167,139,250,0.6), rgba(125,211,252,0.6));
+
+  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-lift: 0 16px 36px rgba(0, 0, 0, 0.4);
+  --glow-teal: 0 0 0 1px rgba(167, 139, 250, 0.3), 0 0 24px rgba(167, 139, 250, 0.18);
+  --glow-cyan: 0 0 0 1px rgba(125, 211, 252, 0.3), 0 0 24px rgba(125, 211, 252, 0.18);
+}
+
+/* -----------------------------
+   3. RESET
+------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--dur-slow) var(--ease-standard),
+              color var(--dur-slow) var(--ease-standard);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* -----------------------------
+   4. AMBIENT BACKGROUND
+   A soft, dreamy wash of lavender/pink/blue behind every
+   page — subtle in light mode, glowing in dark mode.
+------------------------------ */
+.app-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(196, 181, 253, 0.35), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(249, 168, 212, 0.22), transparent 42%),
+    radial-gradient(circle at 60% 90%, rgba(96, 165, 250, 0.18), transparent 45%),
+    var(--bg-void);
+  pointer-events: none;
+  transition: background-color var(--dur-slow) var(--ease-standard);
+}
+
+[data-theme="dark"] .app-backdrop {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(167, 139, 250, 0.18), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(244, 114, 182, 0.10), transparent 42%),
+    radial-gradient(circle at 60% 90%, rgba(125, 211, 252, 0.10), transparent 45%),
+    var(--bg-void);
+}
+
+.app-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at 50% 0%, black, transparent 70%);
+}
+
+[data-theme="dark"] .app-backdrop::after {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* -----------------------------
+   5. TYPOGRAPHY
+------------------------------ */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+h1 { font-size: var(--fs-h1); font-weight: 700; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-h4); }
+
+p {
+  color: var(--text-secondary);
+  font-size: var(--fs-body);
+}
+
+.text-lead {
+  font-size: var(--fs-body-lg);
+  color: var(--text-secondary);
+}
+
+.text-small { font-size: var(--fs-small); color: var(--text-muted); }
+.text-tiny { font-size: var(--fs-tiny); color: var(--text-muted); letter-spacing: 0.04em; }
+
+.text-gradient {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  box-shadow: 0 0 12px var(--accent-teal);
+}
+
+/* Mono readout style — used for every numeric stat, score,
+   timer, streak count across the product */
+.mono-stat {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* -----------------------------
+   6. LAYOUT UTILITIES
+------------------------------ */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.section {
+  padding: var(--space-2xl) 0;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* -----------------------------
+   7. KEYFRAME ANIMATIONS
+------------------------------ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.fade-up {
+  animation: fadeUp var(--dur-slow) var(--ease-standard) both;
+}

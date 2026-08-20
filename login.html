@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In — Nova AI</title>
+  <script>
+    (function () {
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('novaAiTheme'); } catch (error) {}
+      document.documentElement.setAttribute('data-theme', savedTheme ? savedTheme : 'light');
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="responsive.css" />
+</head>
+<body>
+  <div class="auth-layout">
+
+    <!-- ============ LEFT: BRAND / TERMINAL PANEL ============ -->
+    <div class="auth-visual fade-up">
+      <div class="flex-between">
+        <a href="index.html" class="nav-logo" aria-label="Nova AI home">
+          <svg class="logo-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#8b5cf6" />
+                <stop offset="1" stop-color="#60a5fa" />
+              </linearGradient>
+            </defs>
+            <rect width="32" height="32" rx="9" fill="url(#logoGrad)" />
+            <path d="M9 22V10L23 22V10" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Nova AI</span>
+        </a>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode">🌙</button>
+      </div>
+
+      <p class="auth-visual-kicker">// welcome_back()</p>
+      <h2>Continue your prep.</h2>
+      <p class="text-lead">Pick up where you left off — analyze, practice, and track your progress toward your next placement.</p>
+
+      <div class="terminal-mini" style="max-width: 320px; margin-top: var(--space-lg);">
+        <div class="terminal-mini-bar">
+          <span class="terminal-dot terminal-dot-red"></span>
+          <span class="terminal-dot terminal-dot-yellow"></span>
+          <span class="terminal-dot terminal-dot-green"></span>
+        </div>
+        <pre class="terminal-mini-body">$ nova-ai --status
+streak: 7 days
+resume_score: 85/100
+next: mock_interview()</pre>
+      </div>
+    </div>
+
+    <!-- ============ RIGHT: FORM ============ -->
+    <div class="auth-form-side fade-up" style="animation-delay: 120ms;">
+      <div class="auth-form-inner">
+        <span class="eyebrow">Log In</span>
+        <h2 style="margin-top: 0.75rem;">Welcome back</h2>
+        <p class="text-small" style="margin-top: 0.5rem;">New here? <a href="signup.html" style="color: var(--accent-cyan);">Create an account</a></p>
+
+        <form id="loginForm" novalidate style="margin-top: var(--space-lg);">
+
+          <div class="field">
+            <label for="loginEmail">Email</label>
+            <input class="input" type="email" id="loginEmail" name="email" placeholder="you@college.edu" autocomplete="email" />
+            <span class="field-error" id="loginEmailError">Please enter a valid email address.</span>
+          </div>
+
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <div class="input-wrap">
+              <input class="input" type="password" id="loginPassword" name="password" placeholder="Enter your password" autocomplete="current-password" />
+              <button type="button" class="input-icon-btn" id="togglePassword" aria-label="Show password">Show</button>
+            </div>
+            <span class="field-error" id="loginPasswordError">Password must be at least 6 characters.</span>
+          </div>
+
+          <div class="flex-between" style="margin-bottom: var(--space-md);">
+            <label class="checkbox-row">
+              <input type="checkbox" id="rememberMe" />
+              Remember me
+            </label>
+            <a href="#" id="forgotPasswordLink" class="text-small" style="color: var(--accent-cyan);">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="loginSubmitBtn">
+            <span id="loginBtnText">Log In</span>
+          </button>
+
+          <p class="text-small" id="loginFormMessage" role="status" style="margin-top: 1rem; min-height: 1.2em;"></p>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="main.js"></script>
+  <script src="theme.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
