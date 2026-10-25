@@ -1,0 +1,229 @@
+
+.challenges-page {
+  width: 100%;
+  color: var(--text-primary, #e8eaf2);
+}
+
+.challenges-heading {
+  margin-bottom: 28px;
+}
+
+.challenges-eyebrow {
+  color: #9b8afb;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.challenges-heading h2 {
+  margin: 10px 0;
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+.challenges-heading p,
+.challenge-details p {
+  color: var(--text-secondary, #9ca3b8);
+  line-height: 1.6;
+}
+
+.challenges-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.challenges-search {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 15px;
+  color: inherit;
+  background: var(--surface, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--border, rgba(150, 150, 180, 0.25));
+  border-radius: 12px;
+  outline: none;
+}
+
+.challenges-search:focus {
+  border-color: #8b7cf6;
+}
+
+.challenges-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.challenge-filter {
+  padding: 9px 15px;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--border, rgba(150, 150, 180, 0.25));
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.challenge-filter.active {
+  color: white;
+  background: linear-gradient(120deg, #8b5cf6, #609af8);
+  border-color: transparent;
+}
+
+.challenges-list {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.challenge-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  background: var(--card-bg, rgba(255, 255, 255, 0.045));
+  border: 1px solid var(--border, rgba(150, 150, 180, 0.2));
+  border-radius: 16px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.challenge-card:hover {
+  border-color: rgba(139, 92, 246, 0.55);
+}
+
+.challenge-done {
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+.challenge-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+.challenge-badge.easy {
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.12);
+}
+
+.challenge-badge.medium {
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.12);
+}
+
+.challenge-badge.hard {
+  color: #fb7185;
+  background: rgba(244, 63, 94, 0.12);
+}
+
+.challenge-details h3 {
+  margin: 10px 0 5px;
+  font-size: 17px;
+}
+
+.challenge-details p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.challenge-action {
+  flex-shrink: 0;
+  padding: 10px 16px;
+  color: white;
+  background: linear-gradient(120deg, #8b5cf6, #609af8);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.challenge-action.completed {
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.12);
+}
+
+.challenges-empty,
+.challenges-progress {
+  color: var(--text-secondary, #9ca3b8);
+  font-size: 14px;
+}
+
+.challenges-progress {
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .challenge-card {
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .challenge-action {
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+
+  .challenges-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+/* Light theme readability fix */
+.challenges-page {
+  color: #173568;
+}
+
+.challenges-heading h2,
+.challenge-details h3 {
+  color: #173568;
+}
+
+.challenges-heading p,
+.challenge-details p,
+.challenges-empty,
+.challenges-progress {
+  color: #536b91;
+}
+
+.challenge-card {
+  background: rgba(255, 255, 255, 0.48);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.challenge-filter {
+  color: #294875;
+  border-color: rgba(100, 125, 190, 0.4);
+}
+
+.challenge-filter:hover {
+  background: rgba(106, 132, 255, 0.12);
+}
+
+.challenge-filter.active {
+  color: #ffffff;
+  background: linear-gradient(120deg, #477bfa, #8755f5);
+}
+
+.challenge-badge.easy {
+  color: #137642;
+  background: #d8f7e4;
+}
+
+.challenge-badge.medium {
+  color: #925500;
+  background: #fff0c7;
+}
+
+.challenge-badge.hard {
+  color: #b42342;
+  background: #ffe0e7;
+}
+
+.challenge-action.completed {
+  color: #137642;
+  background: #d8f7e4;
+}
